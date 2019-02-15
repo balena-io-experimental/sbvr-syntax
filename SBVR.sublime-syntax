@@ -1,0 +1,111 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+file_extensions:
+  - sbvr
+scope: source.sbvr
+
+variables:
+  anything: '.*'
+  number: 'no|one|[0-9]+'
+  name: '[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9]'
+  modifier: 'It is (?:obligatory|necessary|prohibited|impossible|not possible|possible|permitted) that'
+  quantifier: '(?:each|an|a|the|some)|(?:(?:at most|at least(?:\s+(?:{{number}}) and at most)?)|more than|exactly)'
+  qualifier: '(?:not)?\s+(?:greater than|less than|equal to)'
+  junction: 'and|or'
+
+contexts:
+  prototype:
+    - include: comment
+
+  main:
+    - include: vocabulary
+    - include: term
+    - include: facttype
+    - include: rule
+    - include: attribute
+
+  comment:
+    - match: '--'
+      scope: punctuation.definition.comment.sbvr
+      push:
+        - meta_scope: comment.line.double-dash.sbvr
+        - match: $\n?
+          pop: true
+
+  string:
+    - match: '"'
+      scope: punctuation.definition.string.begin.sbvr
+      push:
+      - meta_include_prototype: false
+      - meta_scope: string.quoted.double.sbvr
+      - match: '\.'
+        scope: constant.character.escape.sbvr
+      - match: '"'
+        scope: punctuation.definition.string.end.sbvr
+        pop: true
+
+  number:
+    - match: '\b(?i:{{number}})\b'
+      scope: constant.numeric.sbvr
+
+  modifier:
+    - match: '\b(?i:{{modifier}})\b'
+      scope: variable.other.constant.sbvr
+
+  qualifier:
+    - match: '\b(?i:{{qualifier}})\b'
+      scope: variable.other.constant.sbvr
+
+  quantifier:
+    - match: '\b(?i:{{quantifier}})\b'
+      scope: variable.other.constant.sbvr
+
+  junction:
+    - match: '\b(?i:{{junction}})\b'
+      scope: keyword.operator.word.junction.sbvr
+
+  vocabulary:
+    - match: '(?i:(Vocabulary:))\s+({{name}})'
+      scope: entity.name.type.vocabulary.sbvr
+      captures:
+        1: keyword.other.vocabulary.sbvr
+        2: string.unquoted.plain.sbvr
+
+  term:
+    - match: '(?i:(Term:))\s+({{name}})'
+      scope: entity.name.type.term.sbvr
+      captures:
+        1: keyword.other.term.sbvr
+        2: string.unquoted.plain.sbvr
+
+  facttype:
+    - match: '(?i:(Fact type:))\s+({{anything}})'
+      scope: entity.name.type.facttype.sbvr
+      captures:
+        1: keyword.other.facttype.sbvr
+        2: string.unquoted.plain.sbvr
+
+  rule:
+    - match: '(?i:(Rule:))\s+'
+      scope: entity.name.type.rule.sbvr
+      captures:
+        1: keyword.other.rule.sbvr
+      push: content
+
+  attribute:
+    - match: '(?i:({{name}}:))\s+'
+      captures:
+        1: keyword.operator.attribute.sbvr
+      push: content
+
+  content:
+    - meta_include_prototype: false
+    - include: string
+    - include: number
+    - include: junction
+    - include: modifier
+    - include: qualifier
+    - include: quantifier
+    - match: $\n?
+      pop: true
