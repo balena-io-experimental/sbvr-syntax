@@ -7,10 +7,10 @@ scope: source.sbvr
 
 variables:
   anything: '.*'
-  number: 'no|one|[0-9]+'
+  number: 'one|[0-9]+'
   name: '[a-zA-Z][a-zA-Z0-9\s]+[a-zA-Z0-9]'
   modifier: 'It is (?:obligatory|necessary|prohibited|impossible|not possible|possible|permitted) that'
-  quantifier: '(?:each|an|a|the|some)|(?:(?:at most|at least(?:\s+(?:{{number}}) and at most)?)|more than|exactly)'
+  quantifier: '(?:each|no|an|a|the|some)|(?:(?:at most|at least(?:\s+(?:{{number}}) and at most)?)|more than|exactly)'
   qualifier: '(?:not)?\s+(?:greater than|less than|equal to)'
   junction: 'and|or'
 
