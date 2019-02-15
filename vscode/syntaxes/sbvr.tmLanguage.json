@@ -1,0 +1,35 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "sbvr",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "storage.type.sbvr",
+				"match": "^\\s*(Vocabulary|Term|Name|Fact type|Rule Name|Synonym|Synonymous Form|Term Form):"
+			}, {
+				"name": "keyword.control.sbvr",
+				"match": "^\\s*(Rule|Concept Type|Definition|Definition (Informal)|Description|Dictionary Basis|Example|Enforcement Level|General Concept|Guidance Type|Namespace URI|Necessity|Note|Possibility|Reference Scheme|See|Source|Subject Field|Synonymous Statement):"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.sbvr",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sbvr",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.sbvr"
+}
