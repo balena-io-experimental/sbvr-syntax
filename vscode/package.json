@@ -1,0 +1,26 @@
+{
+    "name": "sbvr",
+    "displayName": "sbvr",
+    "description": "SBVR highlighting",
+    "version": "0.0.1",
+    "publisher": "pjgazzard",
+    "engines": {
+        "vscode": "^1.16.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "sbvr",
+            "aliases": ["sbvr", "sbvr"],
+            "extensions": [".sbvr"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "sbvr",
+            "scopeName": "source.sbvr",
+            "path": "./syntaxes/sbvr.tmLanguage.json"
+        }]
+    }
+}
